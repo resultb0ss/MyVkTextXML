@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.example.myvktestxml"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.myvktestxml"
@@ -74,12 +74,6 @@ dependencies {
     // Glide (for images)
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
-
-    // Lottie (for animations)
-    implementation ("com.airbnb.android:lottie:6.4.0")
-
-    // TextAutoSize
-    implementation ("me.grantland:autofittextview:0.2.1")
 
     // Parcelize
     implementation(libs.kotlin.stdlib.jdk7)
