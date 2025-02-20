@@ -8,7 +8,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.myvktestxml.R
 import com.example.myvktestxml.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
         binding.mainActivityToolbar.setupWithNavController(navController, appBarConfiguration)
-
     }
 
     override fun onDestroy() {

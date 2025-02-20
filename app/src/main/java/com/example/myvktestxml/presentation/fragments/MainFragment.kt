@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,11 +13,13 @@ import com.example.myvktestxml.databinding.FragmentMainBinding
 import com.example.myvktestxml.domain.models.Resource
 import com.example.myvktestxml.presentation.adapters.MainAdapter
 import com.example.myvktestxml.presentation.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
-    private val viewModel = ViewModelProvider(this)[MainViewModel::class]
+    private val viewModel: MainViewModel by viewModels()
     private val videoAdapter = MainAdapter { data ->
         val action =
             MainFragmentDirections.Companion

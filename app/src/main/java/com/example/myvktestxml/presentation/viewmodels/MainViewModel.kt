@@ -5,11 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.myvktestxml.domain.models.Resource
 import com.example.myvktestxml.domain.models.VideoEntity
 import com.example.myvktestxml.domain.usecases.GetVideoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val getVideoUseCase: GetVideoUseCase
 ) : ViewModel() {
     private var _videos =

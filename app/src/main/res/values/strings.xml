@@ -9,4 +9,8 @@
     <!-- Errors Strings -->
     <string name="data_upload_error_text">Ошибка загрузки данных</string>
     <string name="connection_error_text">Ошибка подключения</string>
+
+    <!-- Fragments Labels Strings -->
+    <string name="play_list_label">Плейлист</string>
+    <string name="video_player_label">Видеоплеер</string>
 </resources>

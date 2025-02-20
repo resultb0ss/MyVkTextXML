@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.myvktestxml.databinding.FragmentVideoPlayerBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class VideoPlayerFragment : BaseFragment<FragmentVideoPlayerBinding>() {
 
     private lateinit var videoUrl: String

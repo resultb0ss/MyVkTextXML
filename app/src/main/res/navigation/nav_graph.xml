@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.myvktestxml.presentation.fragments.MainFragment"
-        android:label="fragment_main"
+        android:label="@string/play_list_label"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_videoPlayerFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/videoPlayerFragment"
         android:name="com.example.myvktestxml.presentation.fragments.VideoPlayerFragment"
-        android:label="fragment_video_player"
+        android:label="@string/video_player_label"
         tools:layout="@layout/fragment_video_player" >
         <argument
             android:name="videoUrl"

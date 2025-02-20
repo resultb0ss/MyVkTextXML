@@ -15,8 +15,7 @@ class MainAdapter(private val onClickItem: (item: VideoEntity) -> Unit) :
     private var videoList: MutableList<VideoEntity> = mutableListOf()
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): MainViewHolder {
         val binding = VideoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -24,8 +23,7 @@ class MainAdapter(private val onClickItem: (item: VideoEntity) -> Unit) :
     }
 
     override fun onBindViewHolder(
-        holder: MainViewHolder,
-        position: Int
+        holder: MainViewHolder, position: Int
     ) {
         val item = videoList[position]
         holder.bind(item)
@@ -48,9 +46,7 @@ class MainAdapter(private val onClickItem: (item: VideoEntity) -> Unit) :
         fun bind(item: VideoEntity) {
             binding.apply {
                 videoItemViewName.text = item.title
-                Glide.with(itemView.context)
-                    .load(item.thumbnail)
-                    .circleCrop()
+                Glide.with(itemView.context).load(item.thumbnail).circleCrop()
                     .into(videoItemViewImage)
                 videoItemViewDuration.text = item.description
 
@@ -60,26 +56,22 @@ class MainAdapter(private val onClickItem: (item: VideoEntity) -> Unit) :
     }
 
     class VideoDiffCallback(
-        private val oldList: List<VideoEntity>,
-        private val newList: List<VideoEntity>
+        private val oldList: List<VideoEntity>, private val newList: List<VideoEntity>
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int = oldList.size
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(
-            oldItemPosition: Int,
-            newItemPosition: Int
+            oldItemPosition: Int, newItemPosition: Int
         ): Boolean {
             return oldList[oldItemPosition].id == newList[newItemPosition].id
         }
 
         override fun areContentsTheSame(
-            oldItemPosition: Int,
-            newItemPosition: Int
+            oldItemPosition: Int, newItemPosition: Int
         ): Boolean {
             return oldList[oldItemPosition] == newList[newItemPosition]
         }
-
     }
 }
