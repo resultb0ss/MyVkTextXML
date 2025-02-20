@@ -103,4 +103,22 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.5.1")
     implementation("androidx.media3:media3-ui:1.5.1")
     implementation("androidx.media3:media3-exoplayer-dash:1.5.1")
+
+    //Espresso
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.6.1")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")
+
+    //Hilt testing
+    androidTestImplementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.55")
+
+    //JUnit
+    androidTestImplementation("junit:junit:4.13.2")
+
+    //Navigation testing
+    androidTestImplementation("androidx.navigation:navigation-testing:2.8.7")
+    androidTestImplementation("org.hamcrest:hamcrest-library:2.2")
+    androidTestImplementation("androidx.fragment:fragment-testing:1.8.6")
+
 }
