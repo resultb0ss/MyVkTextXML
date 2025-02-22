@@ -14,4 +14,7 @@ interface VideoDao {
 
     @Query("SELECT * FROM videos")
     suspend fun getAllVideos(): List<VideoEntity>
+
+    @Query("DELETE FROM videos")
+    suspend fun deleteAllVideos()
 }

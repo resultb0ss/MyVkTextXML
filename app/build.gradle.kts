@@ -17,7 +17,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.myvktestxml.TestRunner"
         buildConfigField("String","API_TOKEN","\"${project.properties["API_TOKEN"]}\"")
     }
 
@@ -108,12 +108,29 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kspAndroidTest("com.google.dagger:hilt-compiler:2.55")
 
-    // AndroidX Test
+    //Tests
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.55")
+    kspAndroidTest("com.google.dagger:hilt-compiler:2.55")
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test:rules:1.6.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.fragment:fragment-testing:1.8.6")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.7.8")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.8.7")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1")
+    androidTestImplementation("org.mockito:mockito-android:4.2.0")
+    androidTestImplementation("org.mockito:mockito-core:4.2.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+
+    // For instrumentation tests
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.55")
+    kspAndroidTest("com.google.dagger:hilt-compiler:2.55")
+
+    // For local unit tests
+    testImplementation("com.google.dagger:hilt-android-testing:2.55")
+    kspTest("com.google.dagger:hilt-compiler:2.55")
+
 
 
 }

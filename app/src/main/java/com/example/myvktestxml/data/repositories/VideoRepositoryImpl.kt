@@ -17,32 +17,36 @@ class VideoRepositoryImpl @Inject constructor(
 
     override suspend fun getVideos(): Flow<Resource<List<VideoEntity>>> {
         return flow {
-
             emit(Resource.Loading())
-            val cachedVideos = videoDao.getAllVideos()
 
+            val cachedVideos = videoDao.getAllVideos()
             if (cachedVideos.isNotEmpty()) {
                 emit(Resource.Success(cachedVideos))
             }
 
             try {
-
                 val token = BuildConfig.API_TOKEN
                 val response = apiInterface.getVideos("Bearer $token")
 
                 if (response.isSuccessful) {
-                    val videos =
-                        checkNotNull(response.body()).data.map { it.toVideoEntity() }
-                    videos.let {
-                        videoDao.insertVideos(it)
-                        emit(Resource.Success(videos))
-                    }
+
+                    videoDao.deleteAllVideos()
+
+                    val videos = checkNotNull(response.body()).data.map { it.toVideoEntity() }
+                    videoDao.insertVideos(videos)
+                    emit(Resource.Success(videos))
                 } else {
                     emit(Resource.Error("Data upload error"))
                 }
+
             } catch (e: Exception) {
-                emit(Resource.Error(e.message.toString()))
+                emit(Resource.Error("Network error: ${e.message}"))
+
+                if (cachedVideos.isNotEmpty()) {
+                    emit(Resource.Success(cachedVideos))
+                }
             }
         }
     }
+
 }
