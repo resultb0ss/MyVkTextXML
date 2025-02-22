@@ -49,10 +49,6 @@ object AppModule {
         return retrofit.create(ApiInterface::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideApiRepository(apiInterface: ApiInterface, videoDao: VideoDao): VideoRepositoryImpl =
-        VideoRepositoryImpl(apiInterface, videoDao)
 
     @Provides
     @Singleton

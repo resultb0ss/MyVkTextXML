@@ -1,7 +1,7 @@
 package com.example.myvktestxml.domain.models
 
 data class ReceivedVideos(
-    val context: List<Any>,
+    val context: List<Any?>,
     val `data`: List<Data>,
     val pagination: Pagination
 )
@@ -28,19 +28,19 @@ data class Link(
 data class Data(
     val assets: Assets,
     val createdAt: String,
-    val deletesAt: Any,
+    val deletesAt: Any?,
     val description: String,
     val discarded: Boolean,
-    val discardedAt: Any,
-    val language: Any,
+    val discardedAt: Any?,
+    val language: Any?,
     val languageOrigin: String,
-    val metadata: List<Any>,
+    val metadata: List<Any?>,
     val mp4Support: Boolean,
     val panoramic: Boolean,
     val `public`: Boolean,
     val publishedAt: String,
     val source: Source,
-    val tags: List<Any>,
+    val tags: List<Any?>,
     val title: String,
     val updatedAt: String,
     val videoId: String

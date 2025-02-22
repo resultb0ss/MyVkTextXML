@@ -1,35 +1,51 @@
 package com.example.myvktestxml
 
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.myvktestxml.presentation.MainActivity
+import com.example.myvktestxml.presentation.fragments.VideoPlayerFragmentArgs
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@HiltAndroidTest
+@RunWith(AndroidJUnit4::class)
 class VideoPlayerFragmentTest {
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    var hiltRule = HiltAndroidRule(this)
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+    }
 
     @Test
-    fun testVideoPlayerInitialization() {
+    fun testVideoPlayerFragmentNavigation() {
+        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
 
-        onView(withId(R.id.mainFragmentRecyclerView))
-            .perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    0,
-                    ViewActions.click()
-                )
+        val videoUrl = "https://example.com/video.mp4"
+        activityScenario.onActivity { activity ->
+
+            val navHostFragment = activity.supportFragmentManager
+                .findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+            val navController = navHostFragment.navController
+
+            navController.navigate(
+                R.id.action_mainFragment_to_videoPlayerFragment,
+                VideoPlayerFragmentArgs(videoUrl).toBundle()
             )
+        }
 
-        onView(withId(R.id.playerView))
-            .check(ViewAssertions.matches(isDisplayed()))
-
-        onView(withId(R.id.playerView)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.playerView)).check(matches(isDisplayed()))
+        activityScenario.close()
     }
 }

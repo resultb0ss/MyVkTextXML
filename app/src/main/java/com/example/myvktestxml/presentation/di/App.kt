@@ -1,8 +1,8 @@
-package com.example.myvktestxml
+package com.example.myvktestxml.presentation.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App: Application() {
+class App : Application() {
 }

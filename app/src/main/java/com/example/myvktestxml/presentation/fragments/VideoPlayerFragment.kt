@@ -1,10 +1,13 @@
 package com.example.myvktestxml.presentation.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.navigation.fragment.findNavController
 import com.example.myvktestxml.databinding.FragmentVideoPlayerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +35,11 @@ class VideoPlayerFragment : BaseFragment<FragmentVideoPlayerBinding>() {
         container: ViewGroup?
     ): FragmentVideoPlayerBinding {
         return FragmentVideoPlayerBinding.inflate(inflater, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initToolbar()
     }
 
     override fun onResume() {
@@ -62,6 +70,27 @@ class VideoPlayerFragment : BaseFragment<FragmentVideoPlayerBinding>() {
             exoPlayer.seekTo(playerPosition)
         }
         binding.playerView.player = exoPlayer
+    }
+
+    private fun initToolbar() {
+        updateToolbarVisibility()
+        binding.videoPlayerFragmentToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun updateToolbarVisibility() {
+        val configuration = resources.configuration
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.videoPlayerFragmentToolbar.visibility = View.GONE
+        } else {
+            binding.videoPlayerFragmentToolbar.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        updateToolbarVisibility()
     }
 
 

@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myvktestxml.R
 import com.example.myvktestxml.databinding.FragmentMainBinding
 import com.example.myvktestxml.domain.models.Resource
 import com.example.myvktestxml.presentation.adapters.MainAdapter
@@ -40,6 +40,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             adapter = videoAdapter
             setHasFixedSize(true)
         }
+
+        binding.mainFragmentToolbar.setTitle(context?.getString(R.string.play_list_label))
 
         binding.apply {
             mainFragmentSwipeRefreshLayout.setOnRefreshListener {
