@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew bundleProdRelease
 
       - name: Upload APK/AAB as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-build
           path: app/build/outputs/**/*.apk
