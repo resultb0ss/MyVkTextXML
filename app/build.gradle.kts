@@ -11,6 +11,22 @@ android {
     namespace = "com.example.myvktestxml"
     compileSdk = 35
 
+    flavorDimensions += "version"
+
+    productFlavors {
+        create("dev") {
+            dimension = "version"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            buildConfigField("String", "BASE_URL","\"https://staging.api.com/\"")
+        }
+
+        create("prod"){
+            dimension = "version"
+            buildConfigField("String", "BASE_URL","\"https://api.com/\"")
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.myvktestxml"
         minSdk = 26
