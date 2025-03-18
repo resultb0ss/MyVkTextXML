@@ -27,7 +27,12 @@ jobs:
           java-version: '17'
 
       - name: Create gradle.properties
-        run: echo "API_TOKEN=${{ secrets.API_TOKEN }}" >> gradle.properties
+        run: |
+          echo "android.useAndroidX=true" >> gradle.properties
+          echo "android.enableJetifier=true" >> gradle.properties
+          echo "kotlin.code.style=official" >> gradle.properties
+          echo "android.nonTransitiveRClass=true" >> gradle.properties
+          echo "API_TOKEN=${{ secrets.API_TOKEN }}" >> gradle.properties
 
       - name: Setup Gradle cache
         uses: gradle/gradle-build-action@v2
