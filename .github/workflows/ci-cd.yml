@@ -1,4 +1,4 @@
-name: Android CI/CD
+name: Android CI/CD (Test Build)
 
 on:
   push:
@@ -43,3 +43,14 @@ jobs:
         with:
           name: app-build
           path: app/build/outputs/**/*.apk
+
+      - name: Send APK to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/dev/debug -name "*.apk" | head -n 1)
+          curl -F chat_id="$TELEGRAM_CHAT_ID" \
+               -F document="@$APK_PATH" \
+               -F caption="✅ Новый тестовый билд доступен!" \
+               "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendDocument"
