@@ -1,0 +1,72 @@
+name: Android CI/CD
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - release/*
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle cache
+        uses: gradle/gradle-build-action@v2
+
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > app/keystore.jks
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x gradlew
+
+      - name: Build and run unit tests
+        run: ./gradlew testDebug
+
+      - name: Build APK (Debug)
+        run: ./gradlew assembleDevDebug
+
+      - name: Build AAB (Release)
+        run: ./gradlew bundleProdRelease
+
+      - name: Upload APK/AAB as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-build
+          path: app/build/outputs/**/*.apk
+
+  deploy:
+    name: Deploy to Google Play
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Decode Service Account JSON
+        run: echo '${{ secrets.GOOGLE_PLAY_JSON }}' > service_account.json
+
+      - name: Upload to Google Play (Release)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.example.myapp
+          releaseFiles: app/build/outputs/bundle/prodRelease/app-prod-release.aab
+          track: production
